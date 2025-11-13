@@ -3,6 +3,7 @@ from __future__ import annotations
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import NoSuchElementException
 
 from ..constants import DEFAULT_TIMEOUT
 from ..utils.text import build_xpath_by_text
@@ -44,9 +45,26 @@ class BasePage:
         return field
 
     def select_from_dropdown(self, selector: str, item_text: str):
-        dropdown = self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, selector)))
-        dropdown.click()
-        option = self.wait_for_text(item_text, "li")
+        element = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, selector)))
+
+        trigger = element
+        if element.tag_name.lower() == "input":
+            try:
+                trigger = element.find_element(
+                    By.XPATH,
+                    "./parent::*//*[@role='combobox']",
+                )
+            except NoSuchElementException:
+                trigger = element
+
+        self.wait.until(lambda driver: trigger.is_displayed() and trigger.is_enabled())
+        try:
+            trigger.click()
+        except Exception:  # noqa: BLE001
+            self.driver.execute_script("arguments[0].click();", trigger)
+
+        option_locator = (By.XPATH, build_xpath_by_text("li", item_text))
+        option = self.wait.until(EC.element_to_be_clickable(option_locator))
         option.click()
         return option
 

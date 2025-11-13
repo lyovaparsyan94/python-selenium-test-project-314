@@ -1,9 +1,9 @@
 from __future__ import annotations
 
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import NoSuchElementException
 
 from ..constants import DEFAULT_TIMEOUT
 from ..utils.text import build_xpath_by_text

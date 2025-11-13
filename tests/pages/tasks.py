@@ -2,8 +2,8 @@ import logging
 
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
 
 from ..utils.logging import LOGGER_NAME
 from ..utils.text import build_xpath_by_text

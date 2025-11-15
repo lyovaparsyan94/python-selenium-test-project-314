@@ -4,8 +4,11 @@ APP_PORT ?= 5173
 
 .PHONY: start stop restart test
 
+install:
+	uv sync
+
 start:
-	docker run --rm -d --name $(APP_CONTAINER) -p $(APP_PORT):5173 $(APP_IMAGE)
+	docker run --rm --name $(APP_CONTAINER) -p $(APP_PORT):5173 $(APP_IMAGE)
 
 stop:
 	- docker stop $(APP_CONTAINER)

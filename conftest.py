@@ -157,10 +157,10 @@ def _safe_test_name(nodeid: str) -> str:
 
 
 def _save_screenshot(
-    driver: webdriver.Chrome,
-    target_dir: Path,
-    nodeid: str,
-    logger: logging.Logger,
+        driver: webdriver.Chrome,
+        target_dir: Path,
+        nodeid: str,
+        logger: logging.Logger,
 ) -> None:
     filename = f"{_safe_test_name(nodeid)}.png"
     path = target_dir / filename
@@ -178,10 +178,10 @@ def _save_screenshot(
 
 @pytest.fixture
 def driver(
-    base_url: str,
-    test_config: TestConfig,
-    test_logger: logging.Logger,
-    request: pytest.FixtureRequest,
+        base_url: str,
+        test_config: TestConfig,
+        test_logger: logging.Logger,
+        request: pytest.FixtureRequest,
 ):
     test_logger.debug("Creating new browser instance for %s", request.node.nodeid)
     browser = _new_browser(base_url, test_config)

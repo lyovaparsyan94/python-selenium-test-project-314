@@ -27,7 +27,7 @@
 
 ```bash
 # 1. Ставим зависимости для тестов
-uv sync --group dev
+uv sync
 
 # 2. Запускаем канбан (используем встроенный Makefile)
 make start

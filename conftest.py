@@ -205,4 +205,3 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
     outcome = yield
     result = outcome.get_result()
     setattr(item, f"rep_{result.when}", result)
-
